@@ -1,0 +1,57 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String   @id @default(uuid())
+  name       String
+  phone      String?
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  attendance Attendance[]
+
+  @@map("users")
+}
+
+model TiffinType {
+  id         String   @id @default(uuid())
+  name       String
+  code       String // FULL | HALF | CHAPATI
+  price      Int
+  is_active  Boolean  @default(true)
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  attendance Attendance[]
+
+  @@map("tiffin_types")
+}
+
+// `date` is stored as a plain "YYYY-MM-DD" string (not a DateTime) so that
+// range filters and equality checks are unambiguous and free of timezone
+// shifting — this mirrors exactly what the frontend already sends/expects.
+model Attendance {
+  id             String   @id @default(uuid())
+  user_id        String
+  date           String
+  meal           String // LUNCH | DINNER
+  tiffin_type_id String
+  quantity       Int      @default(1)
+  price          Int
+  created_at     DateTime @default(now())
+  updated_at     DateTime @updatedAt
+
+  user       User       @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  tiffinType TiffinType @relation(fields: [tiffin_type_id], references: [id])
+
+  @@unique([user_id, date, meal])
+  @@index([date])
+  @@map("attendance")
+}

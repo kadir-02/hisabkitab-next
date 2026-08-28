@@ -1,0 +1,93 @@
+@import url("https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: "Fraunces", Georgia, serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  background-color: #e9e1c8;
+  font-family: var(--font-body);
+  color: #2b2118;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(43, 33, 24, 0.2);
+  border-radius: 4px;
+}
+
+:focus-visible {
+  outline: 2px solid #a63d31;
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* The ledger "page": ruled horizontal lines + a red margin rule, like a bahi-khata account book */
+.ledger-page {
+  position: relative;
+  background-color: #f7f1df;
+  background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent 35px,
+      rgba(51, 80, 122, 0.14) 35px,
+      rgba(51, 80, 122, 0.14) 36px
+    ),
+    linear-gradient(to right, transparent 0, transparent 30px, rgba(181, 69, 58, 0.32) 30px, rgba(181, 69, 58, 0.32) 31px, transparent 31px);
+  background-position: 0 4px, 0 0;
+}
+
+/* Binding: perforated / stitched left edge for the app "notebook" shell */
+.notebook-spine {
+  background-image: radial-gradient(circle, rgba(43, 33, 24, 0.18) 1.6px, transparent 1.7px);
+  background-size: 100% 22px;
+  background-repeat: repeat-y;
+  background-position: 6px 10px;
+}
+
+.ink-stamp {
+  transform: rotate(-3deg);
+}
+
+.tap-scale {
+  transition: transform 120ms ease;
+}
+.tap-scale:active {
+  transform: scale(0.96);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
