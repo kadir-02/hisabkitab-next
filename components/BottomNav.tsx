@@ -57,6 +57,11 @@ export default function BottomNav() {
           );
         })}
       </ul>
+      <div className="pb-1.5 text-center">
+        <span className="text-[8px] font-body tracking-wider text-ink-faint/70">
+          Developed by Kadir
+        </span>
+      </div>
     </nav>
   );
 }
