@@ -20,6 +20,7 @@ class ApiError extends Error {
 async function request<T>(url: string, init?: RequestInit): Promise<T> {
   const res = await fetch(url, {
     ...init,
+    cache: "no-store",
     headers: { "Content-Type": "application/json", ...(init?.headers || {}) },
   });
   const body = await res.json().catch(() => ({}));

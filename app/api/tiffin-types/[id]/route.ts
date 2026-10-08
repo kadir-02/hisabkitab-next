@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
 import { jsonError } from "@/lib/server-utils";
 
+export const dynamic = "force-dynamic";
+
 export async function PATCH(request: NextRequest, { params }: { params: { id: string } }) {
   const existing = await prisma.tiffinType.findUnique({ where: { id: params.id } });
   if (!existing) return jsonError("Tiffin type not found.", 404);
